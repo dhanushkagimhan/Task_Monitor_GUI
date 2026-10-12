@@ -41,7 +41,7 @@ export default function ProcessTaskPage() {
 
         socket.on("task:joined", async () => {
             try {
-                const task = await queryClient.fetchQuery({
+                const task = await queryClient.query({
                     queryKey: ["task", id],
                     queryFn: () => getTask(id),
                 });

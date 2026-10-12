@@ -173,8 +173,11 @@ export default function HomePage() {
                                                         onClick={() =>
                                                             navigate(`/tasks/${task._id}/process`)
                                                         }
-                                                        disabled={task.status === "processing"}
-                                                        className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                                                        disabled={
+                                                            task.status === "processing" ||
+                                                            task.status === "completed"
+                                                        }
+                                                        className={`rounded-lg px-3 py-2 text-sm font-medium text-white disabled:opacity-50 ${task.status === "completed" ? "bg-green-800" : "bg-indigo-600 hover:bg-indigo-700"}`}
                                                     >
                                                         {task.status === "processing"
                                                             ? "Processing..."
