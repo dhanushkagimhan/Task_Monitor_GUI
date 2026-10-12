@@ -1,7 +1,8 @@
 import { useState, type SubmitEvent } from "react";
 import { useCreateTask, useDeleteTask, useTasks, useUpdateTask } from "../hooks/useTasks";
+import { useNavigate } from "react-router";
 
-export function HomePage() {
+export default function HomePage() {
     const [title, setTitle] = useState("");
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editingTitle, setEditingTitle] = useState("");
@@ -10,6 +11,8 @@ export function HomePage() {
     const createMutation = useCreateTask();
     const updateMutation = useUpdateTask();
     const deleteMutation = useDeleteTask();
+
+    const navigate = useNavigate();
 
     const isSaving = createMutation.isPending || updateMutation.isPending;
 
@@ -166,6 +169,17 @@ export function HomePage() {
                                                 </div>
 
                                                 <div className="flex shrink-0 gap-2">
+                                                    <button
+                                                        onClick={() =>
+                                                            navigate(`/tasks/${task._id}/process`)
+                                                        }
+                                                        disabled={task.status === "processing"}
+                                                        className="rounded-lg bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                                                    >
+                                                        {task.status === "processing"
+                                                            ? "Processing..."
+                                                            : "Process task"}
+                                                    </button>
                                                     <button
                                                         onClick={() => {
                                                             setEditingId(task._id);

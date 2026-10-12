@@ -32,3 +32,15 @@ export const updateTask = async (
 export const deleteTask = async (id: string): Promise<void> => {
   await api.delete(`/tasks/${id}`);
 };
+
+export const getTask = async (id: string): Promise<Task> => {
+  const response = await api.get<Task>(`/tasks/${id}`);
+  return response.data;
+};
+
+export const startTaskProcessing = async (
+  id: string,
+): Promise<{ message: string; taskId: string }> => {
+  const response = await api.post(`/tasks/${id}/process`);
+  return response.data;
+};
